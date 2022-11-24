@@ -1,22 +1,54 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import bg from "../../Assets/music.jpg";
+import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 
 const Register = () => {
+  const { createUser, updateUser, setLoading } = useContext(AuthContext);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+
   const handleRegister = (data) => {
     console.log(data);
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        toast.success("Welcome to Guitar Store");
+        console.log(user);
+        const userInfo = {
+          displayName: data.name,
+        };
+        updateUser(userInfo)
+          .then(() => {
+            navigate(from, { replace: true });
+            toast.success("Profile Updated!!");
+          })
+          .catch((e) => console.log(e));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
-    <div>
+    <div
+      className=" bg-cover"
+      style={{
+        backgroundImage: `url(${bg})`,
+      }}
+    >
       <div className="h-[800px] flex justify-center items-center">
-        <div className="w-96 p-7 shadow-xl rounded-xl">
+        <div className="w-96 p-7 bg-white/95 lg:bg-white/80 shadow-2xl rounded-xl">
           <h1 className="text-xl text-center font-bold">Login</h1>
           <form className="grid gap-2" onSubmit={handleSubmit(handleRegister)}>
             <div className="form-control w-full max-w-xs">
@@ -35,6 +67,13 @@ const Register = () => {
                 </p>
               )}
             </div>
+            <select
+              className="input input-bordered w-full max-w-xs"
+              {...register("position", { required: true })}
+            >
+              <option value="Buyer">Buyer</option>
+              <option value="Seller">Seller</option>
+            </select>
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Email</span>

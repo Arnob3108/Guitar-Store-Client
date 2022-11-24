@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import bg from "../../Assets/notes.jpg";
 
 const Login = () => {
   const {
@@ -15,9 +16,14 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div
+      className=" bg-cover"
+      style={{
+        backgroundImage: `url(${bg})`,
+      }}
+    >
       <div className="h-[800px] flex justify-center items-center">
-        <div className="w-96 p-7 shadow-xl rounded-xl">
+        <div className="w-96 p-7 bg-white/90 shadow-2xl rounded-xl">
           <h1 className="text-xl text-center font-bold">Login</h1>
           <form className="grid gap-2" onSubmit={handleSubmit(handleLogin)}>
             <div className="form-control w-full max-w-xs">

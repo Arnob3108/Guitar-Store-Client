@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../Assets/logo2.png";
 import bg from "../../Assets/navBg.jpg";
+import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 
 const Navber = () => {
+  const { user } = useContext(AuthContext);
   const menuList = (
     <>
       <li>
@@ -19,12 +21,21 @@ const Navber = () => {
           Blog
         </NavLink>
       </li>
-      <li>
-        <NavLink to="reviews">Review</NavLink>
-      </li>
-      <li>
-        <NavLink to="contactus">Contact Us</NavLink>
-      </li>
+
+      {user?.uid ? (
+        <>
+          <li>
+            <NavLink to="dashboard">Dashboard</NavLink>
+          </li>
+          <li>
+            <button>Log Out</button>
+          </li>
+        </>
+      ) : (
+        <li>
+          <NavLink to="login">Login</NavLink>
+        </li>
+      )}
     </>
   );
 
