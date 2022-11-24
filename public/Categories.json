@@ -1,0 +1,17 @@
+[
+  {
+    "categori_id": "1",
+    "title": "Acoustic Guitar",
+    "img": "https://i.ibb.co/zFRM3xT/acoustic.jpg"
+  },
+  {
+    "categori_id": "2",
+    "title": "Electric Guitar",
+    "img": "https://i.ibb.co/0CM0G7K/electric.jpg"
+  },
+  {
+    "categori_id": "3",
+    "title": "Bass Guitar",
+    "img": "https://i.ibb.co/r0CrcGZ/bass.jpg"
+  }
+]

@@ -26,15 +26,15 @@ const Shop = () => {
           </div>
           <div className="max-w-xl mb-6">
             <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-              Let us handle
+              The Best Rated
               <br className="hidden md:block" />
-              your next{" "}
-              <span className="inline-block text-purple-600">destination</span>
+              Online{" "}
+              <span className="inline-block text-purple-600">Guitar Shop</span>
             </h2>
             <p className="text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae. explicabo.
+              With more than 1,200 evaluations and an average rating of 4.9 out
+              of 5 stars on Google, Fanatic Guitars is positioned as the best
+              valued store in Spain and Andorra.
             </p>
           </div>
           <div>
