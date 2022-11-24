@@ -5,7 +5,7 @@ import bg from "../../Assets/footer.png";
 const Footer = () => {
   return (
     <div
-      className=""
+      className="shadow-2xl"
       style={{
         backgroundImage: `url(${bg})`,
       }}

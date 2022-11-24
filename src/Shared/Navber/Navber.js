@@ -29,7 +29,7 @@ const Navber = () => {
       {user?.uid ? (
         <>
           <li>
-            <NavLink to="dashboard">Dashboard</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
           </li>
           <li>
             <button onClick={handleLogOut}>Log Out</button>
@@ -48,7 +48,7 @@ const Navber = () => {
       style={{
         backgroundImage: `url(${bg})`,
       }}
-      className="navbar flex justify-between"
+      className="navbar flex justify-between shadow-2xl"
     >
       <div className="navbar-start">
         <div className="dropdown">

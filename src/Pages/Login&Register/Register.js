@@ -49,7 +49,7 @@ const Register = () => {
     >
       <div className="h-[800px] flex justify-center items-center">
         <div className="w-96 p-7 bg-white/95 lg:bg-white/80 shadow-2xl rounded-xl">
-          <h1 className="text-xl text-center font-bold">Login</h1>
+          <h1 className="text-xl text-center font-bold">Registration</h1>
           <form className="grid gap-2" onSubmit={handleSubmit(handleRegister)}>
             <div className="form-control w-full max-w-xs">
               <label className="label">
