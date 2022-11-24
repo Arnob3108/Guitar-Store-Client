@@ -1,20 +1,25 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import toast from "react-hot-toast";
 import logo from "../../Assets/logo2.png";
 import bg from "../../Assets/navBg.jpg";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 
 const Navber = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Sign Out Done!!");
+      })
+      .catch((e) => console.error(e));
+  };
   const menuList = (
     <>
       <li>
         <NavLink className="rounded-lg" to={"/"}>
           Home
         </NavLink>
-      </li>
-      <li>
-        <NavLink to="appointment">Appointment</NavLink>
       </li>
       <li>
         <NavLink className="rounded-lg" to="blog">
@@ -28,7 +33,7 @@ const Navber = () => {
             <NavLink to="dashboard">Dashboard</NavLink>
           </li>
           <li>
-            <button>Log Out</button>
+            <button onClick={handleLogOut}>Log Out</button>
           </li>
         </>
       ) : (
