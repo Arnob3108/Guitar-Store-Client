@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import bg from "../../Assets/notes.jpg";
+import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 
 const Login = () => {
   const {
@@ -9,10 +11,33 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const { signIn, setLoading } = useContext(AuthContext);
+
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const handleLogin = (data) => {
     console.log(data);
+    setError("");
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        navigate(from, { replace: true });
+        toast.success("Login successfull");
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        setError(error.message);
+        toast.error(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (

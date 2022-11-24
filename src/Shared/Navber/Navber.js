@@ -26,7 +26,6 @@ const Navber = () => {
           Blog
         </NavLink>
       </li>
-
       {user?.uid ? (
         <>
           <li>
