@@ -22,7 +22,7 @@ const Navber = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink className="rounded-lg" to="blog">
+        <NavLink className="rounded-lg" to="/blog">
           Blog
         </NavLink>
       </li>
