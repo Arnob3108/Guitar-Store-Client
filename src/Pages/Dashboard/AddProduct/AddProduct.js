@@ -1,6 +1,17 @@
-import React from "react";
+import { format } from "date-fns";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthContext/AuthProvider";
 
 const AddProduct = () => {
+  const { user, loading, setLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const time = new Date();
+
+  const date = format(time, "PP");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -18,8 +29,10 @@ const AddProduct = () => {
     const BackAndSides = form.BackAndSides.value;
     const Neck = form.Neck.value;
     const Fretboard = form.Fretboard.value;
+    const seller = user?.displayName;
+    const email = user?.email;
 
-    console.log(
+    const categoryProduct = {
       name,
       condition,
       GuitarType,
@@ -33,8 +46,31 @@ const AddProduct = () => {
       BackAndSides,
       Top,
       Fretboard,
-      Neck
-    );
+      Neck,
+      seller,
+      email,
+      date,
+    };
+
+    fetch("http://localhost:5000/category/product", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(categoryProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(true);
+        if (data.acknowledged) {
+          toast.success("Product Added successfully");
+          form.reset();
+          navigate(`/category/${categori_id}`);
+          setLoading(false);
+        }
+      });
+
+    console.log(categoryProduct);
   };
   return (
     <div>
