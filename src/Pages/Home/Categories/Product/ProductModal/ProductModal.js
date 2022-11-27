@@ -45,6 +45,8 @@ const ProductModal = ({ bookingProduct, setBookingProduct }) => {
       email,
       meetingLoaction,
       userPhone,
+      img,
+      seller,
     };
 
     fetch("http://localhost:5000/category/product/booked", {

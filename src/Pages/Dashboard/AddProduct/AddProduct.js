@@ -196,7 +196,7 @@ const AddProduct = () => {
                 </option>
                 <option value={"Excilent"}>Excilent</option>
                 <option value={"Good"}>Good</option>
-                <option value={"Poor"}>Poor</option>
+                <option value={"Poor"}>Fair</option>
               </select>
             </div>
             <div className="flex-1 form-control">

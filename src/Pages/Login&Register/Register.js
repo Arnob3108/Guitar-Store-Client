@@ -4,9 +4,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import bg from "../../Assets/music.jpg";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Register = () => {
-  const { createUser, updateUser, setLoading } = useContext(AuthContext);
+  const { createUser, updateUser, setLoading, googleProvider } =
+    useContext(AuthContext);
   const {
     register,
     formState: { errors },
@@ -38,6 +40,19 @@ const Register = () => {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const googleSignInProvider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = () => {
+    googleProvider(googleSignInProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+        toast.success("successfully login");
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -136,7 +151,10 @@ const Register = () => {
             </Link>
           </p>
           <div className="divider">OR</div>
-          <button className="btn btn-accent btn-outline w-full">
+          <button
+            onClick={handleGoogleSignIn}
+            className="btn btn-accent btn-outline w-full"
+          >
             Continue With Google
           </button>
         </div>
