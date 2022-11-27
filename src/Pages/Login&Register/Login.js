@@ -37,7 +37,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         toast.success("Login successfull");
-        // setLoading(false);
+        setLoading(true);
         getUserToken(data.email);
       })
       .catch((error) => {

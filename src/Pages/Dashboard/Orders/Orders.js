@@ -42,7 +42,7 @@ const Orders = () => {
               <tbody>
                 {/* <!-- row --> */}
                 {productBooked.map((booked, i) => (
-                  <tr>
+                  <tr key={i}>
                     <th>
                       <p>{i + 1}</p>
                     </th>
