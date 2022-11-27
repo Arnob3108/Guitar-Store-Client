@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import bg from "../../Assets/music.jpg";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
+import useToken from "../../hooks/useToken";
 
 const Register = () => {
   const { createUser, updateUser, setLoading, googleProvider } =
@@ -14,10 +15,17 @@ const Register = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+
+  const [token] = useToken(createdUserEmail);
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
+
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   const handleRegister = (data) => {
     console.log(data);
@@ -67,7 +75,7 @@ const Register = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        navigate(from, { replace: true });
+        setCreatedUserEmail(email);
       });
   };
 

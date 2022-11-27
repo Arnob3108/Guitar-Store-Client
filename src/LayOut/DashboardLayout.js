@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Navber from "../Shared/Navber/Navber";
 import bg from "../Assets/navBg.jpg";
+import { MdDashboard } from "react-icons/md";
 
 const DashboardLayout = () => {
   return (
@@ -19,20 +20,7 @@ const DashboardLayout = () => {
             tabIndex={2}
             className="btn btn-ghost glass lg:hidden absolute right-0"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+            <MdDashboard className="text-2xl"></MdDashboard>
           </label>
           <Outlet></Outlet>
         </div>

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import bg from "../../Assets/notes.jpg";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const {
@@ -16,10 +17,17 @@ const Login = () => {
   const { signIn, setLoading, googleProvider } = useContext(AuthContext);
 
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
+  // const [loginUserEmail, setLoginUserEmail] = useState("");
+  // const [token] = useToken(loginUserEmail);
+
+  const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
+
+  // if (token) {
+  //   navigate(from, { replace: true });
+  // }
 
   const handleLogin = (data) => {
     console.log(data);
@@ -27,10 +35,10 @@ const Login = () => {
     signIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        setLoading(true);
-        navigate(from, { replace: true });
-        toast.success("Login successfull");
         console.log(user);
+        toast.success("Login successfull");
+        // setLoading(false);
+        getUserToken(data.email);
       })
       .catch((error) => {
         console.error(error.message);
@@ -49,10 +57,21 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate(from, { replace: true });
+        // navigate(from, { replace: true });
         toast.success("successfully login");
       })
       .catch((error) => toast.error(error.message));
+  };
+
+  const getUserToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+          navigate(from, { replace: true });
+        }
+      });
   };
 
   return (

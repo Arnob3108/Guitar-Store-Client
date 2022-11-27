@@ -2,6 +2,7 @@ import React from "react";
 import bg from "../../../Assets/bg2.jpg";
 import bg2 from "../../../Assets/textbg2.jpg";
 import buttonbg from "../../../Assets/textbg.jpg";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -32,14 +33,16 @@ const Banner = () => {
             the highly professional guidance and service we provide for our
             buyers.
           </p>
-          <button
-            style={{
-              backgroundImage: `url(${buttonbg})`,
-            }}
-            className="btn bg-cover text-white font-bold text-lg"
-          >
-            Visite Store
-          </button>
+          <Link to={"/category/product"}>
+            <button
+              style={{
+                backgroundImage: `url(${buttonbg})`,
+              }}
+              className="btn bg-cover text-white font-bold text-lg"
+            >
+              Visite Store
+            </button>
+          </Link>
         </div>
       </div>
     </div>
