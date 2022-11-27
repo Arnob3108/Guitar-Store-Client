@@ -25,10 +25,9 @@ const ProductModal = ({ bookingProduct, setBookingProduct }) => {
     Fretboard,
     Neck,
     seller,
-    email,
     date,
   } = bookingProduct;
-  //   console.log(bookingProduct);
+  console.log(bookingProduct);
 
   const handleBooking = (event) => {
     event.preventDefault();
@@ -36,6 +35,7 @@ const ProductModal = ({ bookingProduct, setBookingProduct }) => {
 
     const meetingLoaction = form.meeting.value;
     const userPhone = form.userPhone.value;
+    const email = user?.email;
 
     const productBooked = {
       name,

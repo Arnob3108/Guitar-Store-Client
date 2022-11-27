@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
-        path: "/dashboard",
+        path: "/dashboard/allUsers",
         element: <AllUsers></AllUsers>,
       },
       {
@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
         element: <AddProduct></AddProduct>,
       },
       {
-        path: "/dashboard/bookedProducts",
+        path: "/dashboard",
         element: <Orders></Orders>,
       },
     ],
