@@ -27,7 +27,11 @@ const Product = ({ product, setBookingProduct }) => {
   } = product;
   return (
     <>
-      <div className="2xl:w-[90%] xl:w-[100%] lg:w-[100%] w-full overflow-hidden bg-white rounded-lg shadow-2xl shadow-gray-500 dark:bg-gray-800 relative">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="500"
+        className="2xl:w-[90%] xl:w-[100%] lg:w-[100%] w-full overflow-hidden bg-white rounded-lg shadow-2xl shadow-gray-500 dark:bg-gray-800 relative"
+      >
         <img
           className="object-cover object-center w-full h-72"
           src={img}

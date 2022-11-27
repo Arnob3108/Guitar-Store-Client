@@ -3,7 +3,9 @@ import DashboardLayout from "../LayOut/DashboardLayout";
 import Main from "../LayOut/Main";
 import Blogs from "../Pages/Blogs/Blogs";
 import AddProduct from "../Pages/Dashboard/AddProduct/AddProduct";
-import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import AllBuyer from "../Pages/Dashboard/AllUsers/AllBuyer";
+import AllSeller from "../Pages/Dashboard/AllUsers/AllSeller";
+import MyProducts from "../Pages/Dashboard/MyProducts/MyProducts";
 
 import Orders from "../Pages/Dashboard/Orders/Orders";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
@@ -61,16 +63,24 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
-        path: "/dashboard/allUsers",
-        element: <AllUsers></AllUsers>,
+        path: "/dashboard",
+        element: <Orders></Orders>,
+      },
+      {
+        path: "/dashboard/allSeller",
+        element: <AllSeller></AllSeller>,
       },
       {
         path: "/dashboard/addProduct",
         element: <AddProduct></AddProduct>,
       },
       {
-        path: "/dashboard",
-        element: <Orders></Orders>,
+        path: "/dashboard/myProducts",
+        element: <MyProducts></MyProducts>,
+      },
+      {
+        path: "/dashboard/allBuyer",
+        element: <AllBuyer></AllBuyer>,
       },
     ],
   },

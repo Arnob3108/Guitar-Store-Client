@@ -77,7 +77,12 @@ const AddProduct = () => {
       <h1 className=" text-5xl text-center font-bold mt-10 ">
         Add Your Product
       </h1>
-      <div className="w-[80%] mx-auto lg:bg-white bg-white/50 shadow-2xl p-10 rounded-2xl mt-8">
+      <div
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+        data-aos-duration="500"
+        className="w-[80%] mx-auto lg:bg-white bg-white/50 shadow-2xl p-10 rounded-2xl mt-8"
+      >
         <form onSubmit={handleSubmit}>
           <div className="flex justify-between flex-col lg:flex-row">
             <div className="flex-1 form-control">

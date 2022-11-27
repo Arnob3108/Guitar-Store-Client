@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const Item = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b">
+    <div data-aos="fade-up" data-aos-duration="500" className="border-b">
       <button
         type="button"
         aria-label="Open item"

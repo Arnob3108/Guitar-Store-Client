@@ -28,6 +28,8 @@ const AllCategories = ({ categories }) => {
           {categories.map((category) => (
             <div key={category._id}>
               <Link
+                data-aos="zoom-out"
+                data-aos-duration="500"
                 to={`category/${category.categori_id}`}
                 aria-label="View Item"
               >

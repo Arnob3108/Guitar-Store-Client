@@ -2,40 +2,44 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext/AuthProvider";
-import { RiSecurePaymentFill } from "react-icons/ri";
 
-const Orders = () => {
+const MyProducts = () => {
   const { user } = useContext(AuthContext);
-  //   const url = `http://localhost:5000/bookedProducts?email=${user?.email}`;
 
-  const { data: productBooked = [] } = useQuery({
-    queryKey: ["bookedProducts", user?.email],
+  const {
+    data: myProducts,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["myProducts"],
     queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:5000/bookedProducts?email=${user?.email}`,
-        {
-          headers: {
-            authorization: `bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      const data = await res.json();
-      return data;
+      try {
+        const res = await fetch(
+          `http://localhost:5000/myProducts?email=${user?.email}`,
+          {
+            headers: {
+              authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        const data = await res.json();
+        return data;
+      } catch (error) {}
     },
   });
 
   return (
     <div>
-      <h1 className="text-5xl text-center font-bold mt-10">My Orders</h1>
+      <h1 className="text-5xl text-center font-bold mt-10">My Products</h1>
       <div>
         <div
           data-aos="fade-left"
           data-aos-anchor="#example-anchor"
           data-aos-offset="500"
           data-aos-duration="500"
-          className="overflow-x-auto lg:w-[80%] w-[95%] mx-auto bg-white p-5 rounded-2xl shadow-2xl mt-10"
+          className="overflow-x-auto lg:w-[85%] w-[95%] mx-auto bg-white p-5 rounded-2xl shadow-2xl mt-10"
         >
-          {productBooked.length > 0 ? (
+          {myProducts?.length > 0 ? (
             <table className="table table-zebra w-full">
               {/* <!-- head --> */}
               <thead>
@@ -43,12 +47,14 @@ const Orders = () => {
                   <th></th>
                   <th>Product</th>
                   <th>Price</th>
-                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Avertise</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
                 {/* <!-- row --> */}
-                {productBooked.map((booked, i) => (
+                {myProducts.map((product, i) => (
                   <tr key={i}>
                     <th>
                       <p>{i + 1}</p>
@@ -58,29 +64,39 @@ const Orders = () => {
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
                             <img
-                              src={booked.img}
+                              src={product.img}
                               alt="Avatar Tailwind CSS Component"
                             />
                           </div>
                         </div>
                         <div>
-                          <div className="font-bold">{booked.name}</div>
+                          <div className="font-bold">{product.name}</div>
                           <div className="text-sm opacity-50">
-                            {booked.bookingDate}
+                            {product.date}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td>
-                      {booked.resale}
+                      {product.resale}
                       <br />
                       <span className="badge badge-ghost line-through badge-sm">
-                        {booked.original}
+                        {product.original}
                       </span>
                     </td>
                     <td>
-                      <button className="btn btn-ghost text-3xl font-bold">
-                        <RiSecurePaymentFill></RiSecurePaymentFill>
+                      <button className="btn btn-info text-sm font-bold btn-xs">
+                        Available
+                      </button>
+                    </td>
+                    <td>
+                      <button className="btn btn-info text-sm font-bold btn-xs">
+                        Advertise
+                      </button>
+                    </td>
+                    <td>
+                      <button className="btn btn-error text-sm font-bold btn-xs">
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -91,14 +107,14 @@ const Orders = () => {
           ) : (
             <h1 className="text-5xl text-center font-bold">
               {" "}
-              No Booking Found!!! Go to{" "}
+              No Product Found!!! Go to{" "}
               <Link
                 className="text-indigo-700 underline"
-                to={"/category/product"}
+                to={"/dashboard/addProduct"}
               >
-                Product
+                Add Product
               </Link>{" "}
-              & Book{" "}
+              & Add Your Product{" "}
             </h1>
           )}
         </div>
@@ -107,4 +123,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default MyProducts;

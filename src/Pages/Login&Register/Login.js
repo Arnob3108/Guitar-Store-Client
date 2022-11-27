@@ -81,7 +81,12 @@ const Login = () => {
         backgroundImage: `url(${bg})`,
       }}
     >
-      <div className="h-[800px] flex justify-center items-center">
+      <div
+        data-aos="fade-down"
+        data-aos-anchor-placement="center-bottom"
+        data-aos-duration="500"
+        className="h-[800px] flex justify-center items-center"
+      >
         <div className="w-96 p-7 bg-white/90 shadow-2xl rounded-xl">
           <h1 className="text-xl text-center font-bold">Login</h1>
           <form className="grid gap-2" onSubmit={handleSubmit(handleLogin)}>
@@ -138,7 +143,7 @@ const Login = () => {
             />
           </form>
           <p className="text-center font-medium text-sm pt-5">
-            New to Doctor's Portal?{" "}
+            New to Guiter Shop?{" "}
             <Link className="text-secondary  font-bold" to="/registration">
               Create New Account.
             </Link>
