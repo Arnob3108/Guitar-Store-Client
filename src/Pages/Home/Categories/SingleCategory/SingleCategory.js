@@ -11,7 +11,7 @@ const SingleCategory = () => {
 
   return (
     <div className="w-full mt-10">
-      <div className="grid lg:gap-20 md:gap-10 gap-8 mb-8 lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:row-gap-6 sm:grid-cols-1 lg:px-5 xl:px-5 2xl:pl-24">
+      <div className="grid lg:gap-20 md:gap-10 gap-8 mb-8 lg:grid-cols-2 xl:grid-cols-3 md:grid-cols-2 sm:row-gap-6 sm:grid-cols-1 lg:px-5 xl:px-5 2xl:pl-24 px-5">
         {products.map((product) => (
           <Product
             setBookingProduct={setBookingProduct}
