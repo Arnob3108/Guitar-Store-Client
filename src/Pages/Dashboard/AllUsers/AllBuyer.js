@@ -1,9 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { GiCrossMark } from "react-icons/gi";
+import ConfirmModal from "../../../Components/ConfirmModal/ConfirmModal";
 
 const AllBuyer = () => {
-  const { data: users = [] } = useQuery({
+  const [deleteUser, setDeletUser] = useState(null);
+
+  const closeModal = () => {
+    setDeletUser(null);
+  };
+
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch("http://localhost:5000/users/buyer");
@@ -11,6 +19,24 @@ const AllBuyer = () => {
       return data;
     },
   });
+
+  const handleDelete = (user) => {
+    fetch(`http://localhost:5000/users/${user._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.deletedCount) {
+          toast.success(`${user.name} Delete successfully`);
+          refetch();
+        }
+      });
+  };
+
   return (
     <div>
       <h1 className="text-5xl text-center font-bold mt-10">All Buyer</h1>
@@ -40,15 +66,30 @@ const AllBuyer = () => {
                 <td>{user.email}</td>
 
                 <td>
-                  <button className="btn btn-ghost text-lg text-red-500 font-bold btn-xs">
-                    <GiCrossMark></GiCrossMark>
-                  </button>
+                  <label htmlFor="confirm-modal" className="btn">
+                    <button
+                      onClick={() => setDeletUser(user)}
+                      className="btn btn-ghost text-lg text-red-500 font-bold btn-xs"
+                    >
+                      <GiCrossMark></GiCrossMark>
+                    </button>
+                  </label>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {deleteUser && (
+        <ConfirmModal
+          title={"Are You Sure?"}
+          message={`You Want to Delete ${deleteUser.name}?`}
+          successButtonName="Delete"
+          successAction={handleDelete}
+          modalData={deleteUser}
+          closeModal={closeModal}
+        ></ConfirmModal>
+      )}
     </div>
   );
 };
