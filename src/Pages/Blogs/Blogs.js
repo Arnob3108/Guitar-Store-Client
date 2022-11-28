@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const Item = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div data-aos="fade-up" data-aos-duration="500" className="border-b">
       <button
