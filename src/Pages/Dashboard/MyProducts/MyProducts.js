@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthContext/AuthProvider";
+import { GiCrossMark } from "react-icons/gi";
+import { FcAdvertising } from "react-icons/fc";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -90,13 +92,13 @@ const MyProducts = () => {
                       </button>
                     </td>
                     <td>
-                      <button className="btn btn-info text-sm font-bold btn-xs">
-                        Advertise
+                      <button className="btn btn-info text-3xl font-bold">
+                        <FcAdvertising></FcAdvertising>
                       </button>
                     </td>
                     <td>
-                      <button className="btn btn-error text-sm font-bold btn-xs">
-                        Delete
+                      <button className="btn btn-error text-lg font-bold">
+                        <GiCrossMark></GiCrossMark>
                       </button>
                     </td>
                   </tr>

@@ -28,7 +28,6 @@ const AllBuyer = () => {
               <th></th>
               <th>Name</th>
               <th>Email</th>
-              <th>Verification</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -39,11 +38,7 @@ const AllBuyer = () => {
                 <th>{i + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>
-                  <button className="btn btn-info text-sm font-bold btn-xs">
-                    Verify
-                  </button>
-                </td>
+
                 <td>
                   <button className="btn btn-ghost text-lg text-red-500 font-bold btn-xs">
                     <GiCrossMark></GiCrossMark>

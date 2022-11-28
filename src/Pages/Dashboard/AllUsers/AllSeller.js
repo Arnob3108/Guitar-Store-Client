@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { GiCrossMark } from "react-icons/gi";
+import { MdVerified } from "react-icons/md";
 
 const AllSeller = () => {
   const { data: users = [] } = useQuery({
@@ -41,8 +42,8 @@ const AllSeller = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                  <button className="btn btn-info text-sm font-bold btn-xs">
-                    Verify
+                  <button className="btn btn-ghost text-blue-500 text-3xl font-bold">
+                    <MdVerified />
                   </button>
                 </td>
                 <td>
