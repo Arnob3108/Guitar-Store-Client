@@ -52,7 +52,7 @@ const AddProduct = () => {
       date,
     };
 
-    fetch("http://localhost:5000/category/product", {
+    fetch("https://product-resale-server-phi.vercel.app/category/product", {
       method: "POST",
       headers: {
         "content-type": "application/json",

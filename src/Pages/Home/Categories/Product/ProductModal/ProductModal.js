@@ -49,13 +49,16 @@ const ProductModal = ({ bookingProduct, setBookingProduct }) => {
       seller,
     };
 
-    fetch("http://localhost:5000/category/product/booked", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(productBooked),
-    })
+    fetch(
+      "https://product-resale-server-phi.vercel.app/category/product/booked",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(productBooked),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setLoading(true);

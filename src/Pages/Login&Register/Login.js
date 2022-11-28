@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import bg from "../../Assets/notes.jpg";
+import SmallLoader from "../../Components/Loader/SmallLoader";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 import useToken from "../../hooks/useToken";
 
@@ -14,7 +15,8 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const { signIn, setLoading, googleProvider } = useContext(AuthContext);
+  const { signIn, setLoading, googleProvider, loading } =
+    useContext(AuthContext);
 
   const [error, setError] = useState("");
 
@@ -57,14 +59,33 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        saveGoogleuser(user?.displayName, user?.email);
         // navigate(from, { replace: true });
         toast.success("successfully login");
       })
       .catch((error) => toast.error(error.message));
   };
 
+  const saveGoogleuser = (name, email, position = "Buyer") => {
+    const user = { name, email, position };
+    fetch(`https://product-resale-server-arnob3108.vercel.app/users/${email}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          console.log(data);
+          getUserToken(email);
+        }
+      });
+  };
+
   const getUserToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://product-resale-server-phi.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {
@@ -136,11 +157,10 @@ const Login = () => {
             {error && (
               <p className="text-sm font-medium text-red-500">{error}</p>
             )}
-            <input
-              value="login"
-              className="btn btn-accent w-full"
-              type="submit"
-            />
+
+            <button className="btn btn-accent w-full">
+              {loading ? <SmallLoader></SmallLoader> : "login"}
+            </button>
           </form>
           <p className="text-center font-medium text-sm pt-5">
             New to Guiter Shop?{" "}
@@ -153,7 +173,7 @@ const Login = () => {
             onClick={handleGoogleSignIn}
             className="btn btn-accent btn-outline w-full"
           >
-            Continue With Google
+            {loading ? <SmallLoader></SmallLoader> : "Continue With Google"}
           </button>
         </div>
       </div>

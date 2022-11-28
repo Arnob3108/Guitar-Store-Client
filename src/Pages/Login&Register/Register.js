@@ -6,9 +6,10 @@ import bg from "../../Assets/music.jpg";
 import { AuthContext } from "../../Context/AuthContext/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import useToken from "../../hooks/useToken";
+import SmallLoader from "../../Components/Loader/SmallLoader";
 
 const Register = () => {
-  const { createUser, updateUser, setLoading, googleProvider } =
+  const { createUser, updateUser, setLoading, googleProvider, loading } =
     useContext(AuthContext);
   const {
     register,
@@ -16,6 +17,8 @@ const Register = () => {
     handleSubmit,
   } = useForm();
   const [createdUserEmail, setCreatedUserEmail] = useState("");
+  // const [createdGoogleUserEmail, setCreatedGoogleUserEmail] = useState("");
+  console.log(createdUserEmail);
 
   const [token] = useToken(createdUserEmail);
 
@@ -57,15 +60,44 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate(from, { replace: true });
+        saveGoogleuser(user?.displayName, user?.email);
+        // navigate(from, { replace: true });
         toast.success("successfully login");
       })
       .catch((error) => toast.error(error.message));
   };
 
-  const saveUser = (name, email, position) => {
+  const saveGoogleuser = (name, email, position = "Buyer") => {
     const user = { name, email, position };
-    fetch("http://localhost:5000/users", {
+    fetch(`https://product-resale-server-arnob3108.vercel.app/users/${email}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          console.log(data);
+          getUserToken(email);
+        }
+      });
+  };
+  const getUserToken = (email) => {
+    fetch(`https://product-resale-server-phi.vercel.app/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+          navigate(from, { replace: true });
+        }
+      });
+  };
+
+  const saveUser = (name, email, position = "Buyer") => {
+    const user = { name, email, position };
+    fetch("https://product-resale-server-phi.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -167,11 +199,9 @@ const Register = () => {
               </label>
             </div>
 
-            <input
-              value="Sign Up"
-              className="btn btn-accent w-full"
-              type="submit"
-            />
+            <button className="btn btn-accent w-full">
+              {loading ? <SmallLoader></SmallLoader> : "Sign Up"}
+            </button>
           </form>
           <p className="text-center font-medium text-sm pt-5">
             Allready have an Account?{" "}
@@ -184,7 +214,7 @@ const Register = () => {
             onClick={handleGoogleSignIn}
             className="btn btn-accent btn-outline w-full"
           >
-            Continue With Google
+            {loading ? <SmallLoader></SmallLoader> : "Continue With Google"}
           </button>
         </div>
       </div>

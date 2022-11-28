@@ -15,14 +15,35 @@ const AllSeller = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/seller");
+      const res = await fetch(
+        "https://product-resale-server-phi.vercel.app/users/seller"
+      );
       const data = await res.json();
       return data;
     },
   });
 
+  const handleVerify = (email) => {
+    fetch(
+      `https://product-resale-server-phi.vercel.app/users/verify/${email}`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          toast.success("Verified Succesfully");
+          refetch();
+        }
+      });
+  };
+
   const handleDelete = (user) => {
-    fetch(`http://localhost:5000/users/${user._id}`, {
+    fetch(`https://product-resale-server-phi.vercel.app/users/${user._id}`, {
       method: "DELETE",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -67,16 +88,20 @@ const AllSeller = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                  <button className="btn btn-ghost text-blue-500 text-3xl font-bold">
-                    <MdVerified />
+                  <button
+                    onClick={() => handleVerify(user?.email)}
+                    className="btn btn-ghost text-blue-500 text-3xl font-bold"
+                  >
+                    {user?.verified === true ? <MdVerified /> : "Verify Seller"}
                   </button>
                 </td>
                 <td>
-                  <label htmlFor="confirm-modal" className="btn">
-                    <button
-                      onClick={() => setDeletUser(user)}
-                      className="btn btn-ghost text-lg text-red-500 font-bold btn-xs"
-                    >
+                  <label
+                    onClick={() => setDeletUser(user)}
+                    htmlFor="confirm-modal"
+                    className="btn"
+                  >
+                    <button className="btn btn-ghost text-lg text-red-500 font-bold btn-xs">
                       <GiCrossMark></GiCrossMark>
                     </button>
                   </label>

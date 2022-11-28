@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { FcCheckmark } from "react-icons/fc";
 import ProductModal from "./ProductModal/ProductModal";
+import { MdVerified } from "react-icons/md";
 
 const Product = ({ product, setBookingProduct }) => {
   // console.log(bookingProduct);
@@ -98,7 +99,10 @@ const Product = ({ product, setBookingProduct }) => {
           <div className="flex items-center mt-2 text-gray-700 dark:text-gray-200">
             <FcCheckmark></FcCheckmark>
 
-            <h1 className="px-2 text-sm">Seller: {seller}</h1>
+            <h1 className="px-2 flex text-sm">
+              Seller: {seller}
+              <MdVerified className="text-blue-500 text-xl " />
+            </h1>
           </div>
           <div className="flex items-center mt-2 text-gray-700 dark:text-gray-200">
             <FcCheckmark></FcCheckmark>

@@ -6,13 +6,13 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 
 const Orders = () => {
   const { user } = useContext(AuthContext);
-  //   const url = `http://localhost:5000/bookedProducts?email=${user?.email}`;
+  //   const url = `https://product-resale-server-phi.vercel.app/bookedProducts?email=${user?.email}`;
 
   const { data: productBooked = [] } = useQuery({
     queryKey: ["bookedProducts", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookedProducts?email=${user?.email}`,
+        `https://product-resale-server-phi.vercel.app/bookedProducts?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,

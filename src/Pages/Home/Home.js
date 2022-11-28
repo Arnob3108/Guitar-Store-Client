@@ -13,7 +13,7 @@ const Home = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/category")
+    fetch("https://product-resale-server-phi.vercel.app/category")
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
